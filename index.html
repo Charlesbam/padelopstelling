@@ -6,208 +6,96 @@
 <title>Padel Opstelling</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #f5f4f0;
-    min-height: 100vh;
-    padding: 1.5rem 1rem 3rem;
-    color: #1a1a18;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;padding:1.5rem 1rem 3rem;color:#1a1a18}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:22px;font-weight:700;margin-bottom:2px}
+.subtext{font-size:13px;color:#73726c;margin-bottom:22px}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#73726c;margin-bottom:8px;display:block}
 
-  h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
-  .subtext { font-size: 13px; color: #73726c; margin-bottom: 22px; }
+/* Player grid */
+.player-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.player-btn{border:1.5px solid #d3d1c7;border-radius:9px;padding:9px 11px;background:#fff;cursor:pointer;text-align:left;transition:all .12s;font-family:inherit;position:relative}
+.player-btn:hover{border-color:#b4b2a9}
+.player-btn.sel-p200{border:2px solid #EF9F27;background:#FAEEDA}
+.player-btn.sel-p100{border:2px solid #1D9E75;background:#E1F5EE}
+.player-btn .pname{font-size:13px;font-weight:700;display:block;margin-bottom:1px;color:#1a1a18}
+.player-btn.sel-p200 .pname{color:#633806}
+.player-btn.sel-p100 .pname{color:#085041}
+.player-btn .plevel{font-size:11px;font-weight:500;color:#888780}
+.player-btn.sel-p200 .plevel{color:#854F0B}
+.player-btn.sel-p100 .plevel{color:#0F6E56}
+.rank-badge{position:absolute;top:7px;right:9px;font-size:10px;font-weight:700;color:#aaa8a0}
 
-  .section-label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .07em; color: #73726c; margin-bottom: 8px; display: block;
-  }
+/* Buttons */
+.btn-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.btn-gen{padding:10px 24px;border-radius:9px;border:none;background:#1a1a18;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .12s}
+.btn-gen:disabled{background:#d3d1c7;color:#888780;cursor:not-allowed}
+.btn-sec{padding:10px 16px;border-radius:9px;border:1.5px solid #d3d1c7;background:transparent;color:#1a1a18;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .12s;display:inline-flex;align-items:center;gap:5px}
+.btn-sec:hover{background:#ece9e3}
+.needs-more{font-size:12px;color:#A32D2D}
 
-  /* Player grid */
-  .player-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .player-btn {
-    border: 1.5px solid #d3d1c7;
-    border-radius: 9px;
-    padding: 9px 11px;
-    background: #fff;
-    cursor: pointer;
-    text-align: left;
-    transition: all .12s;
-    font-family: inherit;
-  }
-  .player-btn:hover { border-color: #b4b2a9; }
-  .player-btn.sel-p200 { border: 2px solid #EF9F27; background: #FAEEDA; }
-  .player-btn.sel-p100 { border: 2px solid #1D9E75; background: #E1F5EE; }
-  .player-btn .pname {
-    font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; color: #1a1a18;
-  }
-  .player-btn.sel-p200 .pname { color: #633806; }
-  .player-btn.sel-p100 .pname { color: #085041; }
-  .player-btn .plevel { font-size: 11px; font-weight: 500; }
-  .player-btn.sel-p200 .plevel { color: #854F0B; }
-  .player-btn.sel-p100 .plevel { color: #0F6E56; }
-  .player-btn:not(.sel-p200):not(.sel-p100) .plevel { color: #888780; }
+/* Error */
+.error-box{background:#FCEBEB;color:#A32D2D;border-radius:9px;padding:10px 14px;font-size:13px;margin-top:14px;border:0.5px solid #F09595;line-height:1.5;display:none}
 
-  /* Buttons row */
-  .btn-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-  .btn-gen {
-    padding: 10px 24px; border-radius: 9px; border: none;
-    background: #1a1a18; color: #fff;
-    font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit;
-    transition: opacity .12s;
-  }
-  .btn-gen:disabled { background: #d3d1c7; color: #888780; cursor: not-allowed; }
-  .btn-regen {
-    padding: 10px 16px; border-radius: 9px;
-    border: 1.5px solid #d3d1c7; background: transparent;
-    color: #1a1a18; font-size: 13px; font-weight: 500;
-    cursor: pointer; font-family: inherit;
-    transition: background .12s;
-  }
-  .btn-regen:hover { background: #ece9e3; }
-  .btn-share {
-    padding: 10px 16px; border-radius: 9px;
-    border: 1.5px solid #d3d1c7; background: transparent;
-    color: #1a1a18; font-size: 13px; font-weight: 500;
-    cursor: pointer; font-family: inherit;
-    transition: background .12s;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .btn-share:hover { background: #ece9e3; }
-  .needs-more { font-size: 12px; color: #A32D2D; }
+/* Rotations */
+.result{margin-top:20px;display:none}
+.rot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.rot-card{border:0.5px solid #d3d1c7;border-radius:10px;overflow:hidden;background:#fff}
+.rot-head{background:#f0ede8;padding:8px 12px;border-bottom:0.5px solid #d3d1c7;display:flex;justify-content:space-between;align-items:center}
+.rot-head-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#73726c}
+.pts-pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:#E1F5EE;color:#085041}
+.rot-body{padding:10px 12px}
+.match-label{font-size:10px;color:#aaa8a0;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.duo{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.duo:last-child{margin-bottom:0}
+.tag{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700}
+.tag-p200{background:#FAEEDA;color:#633806}
+.tag-p100{background:#E1F5EE;color:#085041}
+.tag-sub-p200{background:#FAEEDA;color:#633806;border:1.5px dashed #EF9F27;font-style:italic}
+.tag-sub-p100{background:#E1F5EE;color:#085041;border:1.5px dashed #1D9E75;font-style:italic}
+.tag .sub-arrow{opacity:.6;font-size:10px}
+.tag .pref-heart{font-size:10px;margin-left:1px}
 
-  /* Error */
-  .error-box {
-    background: #FCEBEB; color: #A32D2D;
-    border-radius: 9px; padding: 10px 14px;
-    font-size: 13px; margin-top: 14px;
-    border: 0.5px solid #F09595; line-height: 1.5;
-  }
+/* Play counts */
+.count-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:7px;margin-top:8px}
+.count-card{border:0.5px solid #d3d1c7;border-radius:8px;padding:8px;text-align:center;background:#fff}
+.count-name{font-size:12px;font-weight:700;margin-bottom:4px;color:#1a1a18}
+.count-num{font-size:26px;font-weight:800;line-height:1}
+.c3{color:#1D9E75}.c2{color:#185FA5}.c1{color:#854F0B}.c0{color:#888780}
+.count-level{font-size:10px;color:#aaa8a0;margin-top:2px}
 
-  /* Result */
-  .result { margin-top: 20px; }
-  .rot-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-  .rot-card {
-    border: 0.5px solid #d3d1c7;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fff;
-  }
-  .rot-head {
-    background: #f0ede8;
-    padding: 8px 12px;
-    border-bottom: 0.5px solid #d3d1c7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .rot-head-label {
-    font-size: 10px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .06em; color: #73726c;
-  }
-  .pts-pill {
-    font-size: 11px; font-weight: 700;
-    padding: 2px 8px; border-radius: 4px;
-    background: #E1F5EE; color: #085041;
-  }
-  .rot-body { padding: 10px 12px; }
-  .match-label {
-    font-size: 10px; color: #aaa8a0; margin-bottom: 4px;
-    font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
-  }
-  .duo { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-  .duo:last-child { margin-bottom: 0; }
-  .tag {
-    display: inline-flex; align-items: center; gap: 3px;
-    padding: 4px 10px; border-radius: 6px;
-    font-size: 12px; font-weight: 700;
-  }
-  .tag-p200 { background: #FAEEDA; color: #633806; }
-  .tag-p100 { background: #E1F5EE; color: #085041; }
-  .tag-sub-p200 { background: #FAEEDA; color: #633806; border: 1.5px dashed #EF9F27; font-style: italic; }
-  .tag-sub-p100 { background: #E1F5EE; color: #085041; border: 1.5px dashed #1D9E75; font-style: italic; }
-  .tag .sub-arrow { opacity: .6; font-size: 10px; }
+.legend{font-size:11px;color:#73726c;margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.legend-tag{font-style:italic;border:1.5px dashed #aaa;border-radius:4px;padding:1px 6px}
 
-  /* Count grid */
-  .count-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 7px;
-    margin-top: 8px;
-  }
-  .count-card {
-    border: 0.5px solid #d3d1c7;
-    border-radius: 8px; padding: 8px;
-    text-align: center; background: #fff;
-  }
-  .count-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #1a1a18; }
-  .count-num { font-size: 26px; font-weight: 800; line-height: 1; }
-  .count-num-3 { color: #1D9E75; }
-  .count-num-2 { color: #185FA5; }
-  .count-num-1 { color: #854F0B; }
-  .count-num-0 { color: #888780; }
-  .count-level { font-size: 10px; color: #aaa8a0; margin-top: 2px; }
+/* Share panel */
+.share-panel{background:#fff;border:0.5px solid #d3d1c7;border-radius:10px;padding:14px 16px;margin-top:14px;display:none}
+.share-panel.open{display:block}
+.share-panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
+.share-options{display:flex;gap:8px;flex-wrap:wrap}
+.share-opt-btn{padding:8px 14px;border-radius:8px;border:1.5px solid #d3d1c7;background:#f5f4f0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1a1a18;display:flex;align-items:center;gap:5px;transition:background .12s}
+.share-opt-btn:hover{background:#ece9e3}
 
-  .legend { font-size: 11px; color: #73726c; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
-  .legend-tag { font-style: italic; border: 1.5px dashed #aaa; border-radius: 4px; padding: 1px 6px; }
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a18;color:#fff;border-radius:20px;padding:10px 20px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;z-index:999}
+.toast.show{opacity:1}
 
-  /* Share toast */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: #1a1a18; color: #fff; border-radius: 20px;
-    padding: 10px 20px; font-size: 13px; font-weight: 500;
-    opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap;
-    z-index: 999;
-  }
-  .toast.show { opacity: 1; }
-
-  /* Share panel */
-  .share-panel {
-    background: #fff; border: 0.5px solid #d3d1c7; border-radius: 10px;
-    padding: 14px 16px; margin-top: 14px; display: none;
-  }
-  .share-panel.open { display: block; }
-  .share-panel h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
-  .share-options { display: flex; gap: 8px; flex-wrap: wrap; }
-  .share-opt-btn {
-    padding: 8px 14px; border-radius: 8px; border: 1.5px solid #d3d1c7;
-    background: #f5f4f0; cursor: pointer; font-family: inherit;
-    font-size: 13px; font-weight: 600; color: #1a1a18;
-    display: flex; align-items: center; gap: 5px;
-    transition: background .12s;
-  }
-  .share-opt-btn:hover { background: #ece9e3; }
-
-  @media (max-width: 480px) {
-    .player-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    .rot-grid { grid-template-columns: 1fr; }
-  }
+@media(max-width:480px){.rot-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>🎾 Padel opstelling</h1>
-  <p class="subtext">Selecteer wie aanwezig is — de app genereert een geldige opstelling (max 500 pts/rotatie)</p>
+  <p class="subtext">Selecteer wie aanwezig is — de app genereert een eerlijke opstelling</p>
 
   <span class="section-label" id="presence-label">Aanwezig (0)</span>
   <div class="player-grid" id="player-grid"></div>
 
   <div class="btn-row">
     <button class="btn-gen" id="btn-gen" disabled onclick="generate()">Genereer opstelling</button>
-    <button class="btn-regen" id="btn-regen" style="display:none" onclick="generate()">↻ Andere</button>
-    <button class="btn-share" id="btn-share" style="display:none" onclick="toggleShare()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    <button class="btn-sec" id="btn-regen" style="display:none" onclick="generate()">↻ Andere</button>
+    <button class="btn-sec" id="btn-share" style="display:none" onclick="toggleShare()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       Delen
     </button>
     <span class="needs-more" id="needs-more"></span>
@@ -218,19 +106,20 @@
     <div class="share-options">
       <button class="share-opt-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
       <button class="share-opt-btn" onclick="copyText()">📋 Kopieer tekst</button>
-      <button class="share-opt-btn" onclick="shareNative()" id="btn-native" style="display:none">🔗 Delen...</button>
+      <button class="share-opt-btn" id="btn-native" style="display:none" onclick="shareNative()">🔗 Delen...</button>
     </div>
   </div>
 
-  <div class="error-box" id="error-box" style="display:none"></div>
-  <div class="result" id="result" style="display:none">
+  <div class="error-box" id="error-box"></div>
+
+  <div class="result" id="result">
     <span class="section-label">Opstelling</span>
     <div class="rot-grid" id="rot-grid"></div>
     <span class="section-label">Matchen per speler</span>
     <div class="count-grid" id="count-grid"></div>
     <div class="legend">
-      <span class="legend-tag">naam ↩</span>
-      <span>= wisselspeler (start pas vanaf rotatie 2)</span>
+      <span class="legend-tag">naam ↩</span><span>wisselspeler</span>
+      <span style="margin-left:8px">💚 voorkeurspaar</span>
     </div>
   </div>
 </div>
@@ -238,22 +127,228 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ── Players (rank 1 = sterkst) ──────────────────────────────────────────────
 const PLAYERS = [
-  {id:"charles",name:"Charles",level:"P200",pts:200},
-  {id:"mathis",  name:"Mathis", level:"P200",pts:200},
-  {id:"berend",  name:"Berend", level:"P100",pts:100},
-  {id:"paolo",   name:"Paolo",  level:"P100",pts:100},
-  {id:"jorre",   name:"Jorre",  level:"P100",pts:100},
-  {id:"bizzy",   name:"Bizzy",  level:"P100",pts:100},
-  {id:"braet",   name:"Braet",  level:"P100",pts:100},
-  {id:"buys",    name:"Buys",   level:"P100",pts:100},
-  {id:"auguy",   name:"Auguy",  level:"P100",pts:100},
+  {id:"mathis",  name:"Mathis",   level:"P200", pts:200, rank:1},
+  {id:"charles", name:"Charles",  level:"P200", pts:200, rank:2},
+  {id:"jorre",   name:"Jorre",    level:"P100", pts:100, rank:3},
+  {id:"berend",  name:"Berend",   level:"P100", pts:100, rank:4},
+  {id:"louis",   name:"Louis B.", level:"P100", pts:100, rank:5},
+  {id:"henrivb", name:"Henri VB", level:"P100", pts:100, rank:6},
+  {id:"paolo",   name:"Paolo",    level:"P100", pts:100, rank:7},
+  {id:"auguy",   name:"Auguy",    level:"P100", pts:100, rank:8},
+  {id:"henrib",  name:"Henri B.", level:"P100", pts:100, rank:9},
 ];
 
+// Spelers 7-9: nooit samen in een duo
+const WEAK = new Set(["paolo","auguy","henrib"]);
+
+// Voorkeuren: bonus als ze samen spelen
+const PREFS = [
+  {a:"jorre",   b:"charles",  bonus:3, label:"💚"},
+  {a:"henrivb", b:"berend",   bonus:3, label:"💚"},
+];
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function hasPref(a, b){
+  return PREFS.find(p=>(p.a===a.id&&p.b===b.id)||(p.a===b.id&&p.b===a.id));
+}
+
+// Score a duo pairing for one rotation
+function scorePairing(m1, m2, usedPairs) {
+  const k1 = [m1[0].id,m1[1].id].sort().join("|");
+  const k2 = [m2[0].id,m2[1].id].sort().join("|");
+
+  // Hard: no repeated partnerships
+  if (usedPairs.has(k1) || usedPairs.has(k2)) return -1e9;
+
+  // Hard: no two weak players together
+  const w1 = m1.filter(p=>WEAK.has(p.id)).length;
+  const w2 = m2.filter(p=>WEAK.has(p.id)).length;
+  if (w1 >= 2 || w2 >= 2) return -1e9;
+
+  let score = 0;
+
+  // Balance within duo: strong+weak is best (large rank difference)
+  score += Math.abs(m1[0].rank - m1[1].rank);
+  score += Math.abs(m2[0].rank - m2[1].rank);
+
+  // Balance between duos: rank sums should be close (fair match)
+  const s1 = m1[0].rank + m1[1].rank;
+  const s2 = m2[0].rank + m2[1].rank;
+  score -= Math.abs(s1 - s2) * 0.8;
+
+  // Preferences
+  for (const [duo] of [[m1],[m2]]) {
+    if (hasPref(duo[0], duo[1])) score += PREFS.find(p=>(p.a===duo[0].id&&p.b===duo[1].id)||(p.a===duo[1].id&&p.b===duo[0].id)).bonus;
+  }
+
+  return score;
+}
+
+// ── Rotation team assignment ─────────────────────────────────────────────────
+function assignRotTeams(base, subs, totalN) {
+  const rot = [
+    [...base],
+    [...base],
+    [...base],
+  ];
+
+  if (subs.length === 0) return rot;
+
+  const p200Base = base.find(p => p.level === "P200");
+  const p200Subs = subs.filter(p => p.level === "P200");
+  const p100Subs = subs.filter(p => p.level === "P100");
+
+  const replacedIn = [new Set(), new Set(), new Set()];
+
+  function replaceIn(r, targetId, sub) {
+    rot[r] = rot[r].map(p => p.id === targetId ? sub : p);
+    replacedIn[r].add(targetId);
+  }
+
+  // How many rotations P200 sub plays (want equal time with P200 base)
+  // totalN=5: p200base=1, p200sub=2; totalN=6+: p200base=1, p200sub=2 or share
+  const p200SubRots = (totalN <= 6 || subs.length <= 2) ? 2 : (totalN === 7 ? 2 : 1);
+
+  p200Subs.forEach(sub => {
+    let assigned = 0;
+    for (let r = 1; r <= 2 && assigned < p200SubRots; r++) {
+      if (p200Base && !replacedIn[r].has(p200Base.id)) {
+        replaceIn(r, p200Base.id, sub);
+        assigned++;
+      }
+    }
+  });
+
+  // P100 sub target rotations per player:
+  // Goal: minimize play time variance
+  // N=5 → 1 p100sub → plays 2
+  // N=6 → 2 p100subs → each plays 2 (all 6 play 2 exactly)
+  // N=7 → 2 p100subs → sub0 plays 2, sub1 plays 1 → gives 1,1,2,2,2,2,2
+  // N=8 → 3 p100subs → sub0 plays 2, sub1 plays 1, sub2 plays 1... or all play 1
+  //   actually with 4 subs total (1 p200sub + 3 p100subs) each plays 1 → 2,2,2,2,1,1,1,1
+  const p100SubTargets = {
+    5: [2],
+    6: [2,2],
+    7: [2,1],
+    8: [1,1,1],
+  };
+  const targets = p100SubTargets[totalN] || p100Subs.map(()=>1);
+
+  p100Subs.forEach((sub, si) => {
+    const count = targets[si] !== undefined ? targets[si] : 1;
+    let assigned = 0;
+
+    // Try rot2 first, then rot3
+    for (let r = 1; r <= 2 && assigned < count; r++) {
+      // Find weakest available base P100 not yet replaced in this rotation
+      const available = base
+        .filter(p => p.level === "P100" && !replacedIn[r].has(p.id))
+        .sort((a,b) => b.rank - a.rank);
+      if (available.length > 0) {
+        replaceIn(r, available[0].id, sub);
+        assigned++;
+      }
+    }
+  });
+
+  return rot;
+}
+
+// ── One lineup attempt ────────────────────────────────────────────────────────
+function tryLineup(selected) {
+  const p200s = selected.filter(p => p.level === "P200").sort((a,b)=>a.rank-b.rank);
+  const p100s = shuffle(selected.filter(p => p.level === "P100"));
+
+  // Build base (rot1 players): 1 P200 max + fill with P100
+  const p200InBase = p200s.length > 0 ? [p200s[0]] : [];
+  const baseP100 = p100s.slice(0, 4 - p200InBase.length);
+  const subP100  = p100s.slice(4 - p200InBase.length);
+  const p200Subs = p200s.slice(1);
+
+  const base = [...p200InBase, ...baseP100];
+  const subs = [...p200Subs, ...subP100];
+
+  const rotTeams = assignRotTeams(base, subs, selected.length);
+
+  // Validate each rotation
+  for (const team of rotTeams) {
+    if (team.length !== 4) return null;
+    const ids = new Set(team.map(p=>p.id));
+    if (ids.size !== 4) return null; // duplicate
+    const total = team.reduce((s,p)=>s+p.pts,0);
+    if (total < 250 || total > 500) return null;
+    if (team.filter(p=>p.level==="P200").length > 1) return null;
+    // No rotation with 3+ weak players (makes duo assignment impossible)
+    if (team.filter(p=>WEAK.has(p.id)).length >= 3) return null;
+  }
+
+  // Form duos for each rotation
+  const usedPairs = new Set();
+  const results = [];
+  let totalScore = 0;
+
+  for (let r = 0; r < 3; r++) {
+    const [a,b,c,d] = rotTeams[r];
+    const combos = [[[a,b],[c,d]],[[a,c],[b,d]],[[a,d],[b,c]]];
+
+    let best = null, bestS = -1e9;
+    for (const [m1,m2] of combos) {
+      const s = scorePairing(m1, m2, usedPairs);
+      if (s > bestS) { bestS = s; best = [m1,m2]; }
+    }
+    if (!best || bestS <= -1e8) return null;
+
+    const [m1,m2] = best;
+    usedPairs.add(m1.map(p=>p.id).sort().join("|"));
+    usedPairs.add(m2.map(p=>p.id).sort().join("|"));
+    totalScore += bestS;
+
+    const d1 = m1.reduce((s,p)=>s+p.pts,0);
+    const d2 = m2.reduce((s,p)=>s+p.pts,0);
+    const [match1,match2] = d1>=d2 ? [m1,m2] : [m2,m1];
+    results.push({players:rotTeams[r], match1, match2,
+      total:rotTeams[r].reduce((s,p)=>s+p.pts,0), nums:[r*2+1,r*2+2]});
+  }
+
+  // Play counts
+  const counts = {};
+  selected.forEach(p=>{counts[p.id]=0;});
+  rotTeams.forEach(t=>t.forEach(p=>{counts[p.id]++;}));
+
+  // Penalize play time variance heavily
+  const vals = Object.values(counts);
+  const avg = vals.reduce((s,v)=>s+v,0)/vals.length;
+  const variance = vals.reduce((s,v)=>s+(v-avg)**2,0)/vals.length;
+  totalScore -= variance * 30;
+
+  return {rotations:results, counts, baseIds:new Set(base.map(p=>p.id)), score:totalScore};
+}
+
+// ── Main compute ──────────────────────────────────────────────────────────────
+function computeLineup(selected) {
+  const n = selected.length;
+  if (n < 4) return {error:"Min. 4 spelers nodig."};
+  if (n > 8) return {error:"Max. 8 spelers toegelaten."};
+
+  const p200s = selected.filter(p=>p.level==="P200");
+  if (n === 4 && p200s.length === 2)
+    return {error:"Met 4 spelers en 2×P200 is geen geldige opstelling mogelijk (600 pts > max 500). Selecteer een extra P100."};
+
+  let best = null;
+  for (let i = 0; i < 400; i++) {
+    const r = tryLineup(selected);
+    if (r && (!best || r.score > best.score)) best = r;
+  }
+  return best || {error:"Kon geen geldige opstelling vinden met de huidige spelerselectie."};
+}
+
+// ── UI ────────────────────────────────────────────────────────────────────────
 let selected = new Set();
 let currentLineup = null;
-
-function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 // Build player buttons
 const grid = document.getElementById("player-grid");
@@ -261,16 +356,27 @@ PLAYERS.forEach(p => {
   const btn = document.createElement("button");
   btn.className = "player-btn";
   btn.id = "pbtn-" + p.id;
-  btn.innerHTML = `<span class="pname">${p.name}</span><span class="plevel">${p.level} · ${p.pts} pts</span>`;
+  btn.innerHTML = `<span class="pname">${p.name}</span><span class="plevel">${p.level} · ${p.pts} pts</span><span class="rank-badge">#${p.rank}</span>`;
   btn.onclick = () => toggle(p);
   grid.appendChild(btn);
 });
 
 function toggle(p) {
   selected.has(p.id) ? selected.delete(p.id) : selected.add(p.id);
-  const btn = document.getElementById("pbtn-" + p.id);
+  const btn = document.getElementById("pbtn-"+p.id);
   btn.className = "player-btn" + (selected.has(p.id) ? ` sel-${p.level.toLowerCase()}` : "");
   updateUI();
+  clearResult();
+}
+
+function updateUI() {
+  const n = selected.size;
+  document.getElementById("presence-label").textContent = `Aanwezig (${n})`;
+  document.getElementById("btn-gen").disabled = n < 4 || n > 8;
+  document.getElementById("needs-more").textContent = (n>0&&n<4) ? `Nog ${4-n} nodig` : "";
+}
+
+function clearResult() {
   document.getElementById("result").style.display = "none";
   document.getElementById("error-box").style.display = "none";
   document.getElementById("btn-regen").style.display = "none";
@@ -279,89 +385,42 @@ function toggle(p) {
   currentLineup = null;
 }
 
-function updateUI() {
-  const n = selected.size;
-  document.getElementById("presence-label").textContent = `Aanwezig (${n})`;
-  const canGen = n >= 4 && n <= 8;
-  document.getElementById("btn-gen").disabled = !canGen;
-  document.getElementById("needs-more").textContent = (n > 0 && n < 4) ? `Nog ${4 - n} nodig` : "";
-}
-
-function computeLineup(sel) {
-  const p200s = shuffle(sel.filter(p=>p.level==="P200"));
-  const p100s = shuffle(sel.filter(p=>p.level==="P100"));
-  if(sel.length===4 && p200s.length===2) return {error:"Met 4 spelers en 2×P200 is een geldige opstelling onmogelijk (600 pts > max 500). Voeg een extra P100 toe of laat 1 P200 thuis."};
-  let base, subs;
-  if(p200s.length===0){base=p100s.slice(0,4);subs=p100s.slice(4);}
-  else if(p200s.length===1){base=[p200s[0],...p100s.slice(0,3)];subs=p100s.slice(3);}
-  else{base=[p200s[0],...p100s.slice(0,3)];subs=[p200s[1],...p100s.slice(3)];}
-  const rotPlayers=[[...base],[...base],[...base]];
-  const nsr2=Math.ceil(subs.length/2);
-  function insertSub(ri,sub){
-    const rot=[...rotPlayers[ri]];let idx;
-    if(sub.level==="P200"){idx=rot.findIndex(p=>p.level==="P200");if(idx===-1)idx=rot.length-1;}
-    else{for(let i=rot.length-1;i>=0;i--){if(rot[i].level==="P100"){idx=i;break;}}if(idx===undefined)idx=rot.length-1;}
-    rot[idx]=sub;rotPlayers[ri]=rot;
-  }
-  subs.forEach((s,i)=>insertSub(i<nsr2?1:2,s));
-  const usedPairs=new Set();
-  const rots=[];
-  for(let r=0;r<3;r++){
-    const rot=rotPlayers[r];
-    const total=rot.reduce((s,p)=>s+p.pts,0);
-    if(total<250||total>500) return {error:`Rotatie ${r+1}: ${total} pts buiten bereik (250–500).`};
-    const [a,b,c,d]=rot;
-    const opts=shuffle([[[a,b],[c,d]],[[a,c],[b,d]],[[a,d],[b,c]]]);
-    let chosen=null;
-    for(const o of opts){
-      const k1=[o[0][0].id,o[0][1].id].sort().join("|");
-      const k2=[o[1][0].id,o[1][1].id].sort().join("|");
-      if(!usedPairs.has(k1)&&!usedPairs.has(k2)){chosen=o;break;}
-    }
-    if(!chosen)chosen=opts[0];
-    usedPairs.add([chosen[0][0].id,chosen[0][1].id].sort().join("|"));
-    usedPairs.add([chosen[1][0].id,chosen[1][1].id].sort().join("|"));
-    const d1=chosen[0].reduce((s,p)=>s+p.pts,0);
-    const d2=chosen[1].reduce((s,p)=>s+p.pts,0);
-    const [m1,m2]=d1>=d2?[chosen[0],chosen[1]]:[chosen[1],chosen[0]];
-    rots.push({players:rot,match1:m1,match2:m2,total,nums:[r*2+1,r*2+2]});
-  }
-  const counts={};sel.forEach(p=>{counts[p.id]=0;});
-  rots.forEach(r=>r.players.forEach(p=>{counts[p.id]++;}));
-  return{rotations:rots,counts,baseIds:new Set(base.map(p=>p.id))};
-}
-
 function generate() {
+  clearResult();
   const sel = PLAYERS.filter(p=>selected.has(p.id));
-  const result = computeLineup(sel);
-  currentLineup = result;
+  const lineup = computeLineup(sel);
+  currentLineup = lineup;
 
-  document.getElementById("error-box").style.display = "none";
-  document.getElementById("result").style.display = "none";
-  document.getElementById("share-panel").classList.remove("open");
-
-  if(result.error){
-    document.getElementById("error-box").textContent = "⚠ " + result.error;
-    document.getElementById("error-box").style.display = "block";
-    document.getElementById("btn-regen").style.display = "none";
-    document.getElementById("btn-share").style.display = "none";
+  if (lineup.error) {
+    const eb = document.getElementById("error-box");
+    eb.textContent = "⚠ " + lineup.error;
+    eb.style.display = "block";
     return;
   }
 
   // Render rotations
   const rotGrid = document.getElementById("rot-grid");
   rotGrid.innerHTML = "";
-  result.rotations.forEach((rot, r) => {
+  lineup.rotations.forEach((rot,r) => {
     const card = document.createElement("div");
     card.className = "rot-card";
-    const matchesHtml = [rot.match1, rot.match2].map((duo, mi) => {
+
+    const matchesHtml = [rot.match1, rot.match2].map((duo,mi) => {
       const tags = duo.map(p => {
-        const isSub = !result.baseIds.has(p.id);
+        const isSub = !lineup.baseIds.has(p.id);
         const cls = isSub ? `tag tag-sub-${p.level.toLowerCase()}` : `tag tag-${p.level.toLowerCase()}`;
-        return `<span class="${cls}">${p.name}${isSub?'<span class="sub-arrow"> ↩</span>':''}</span>`;
+        const prefMatch = hasPref(duo[0], duo[1]);
+        const heart = (mi===0||mi===1) && hasPref(duo[0],duo[1]) && p===duo[0] ? ' <span class="pref-heart">💚</span>' : '';
+        return `<span class="${cls}">${p.name}${isSub?'<span class="sub-arrow"> ↩</span>':''}${heart}</span>`;
       }).join("");
-      return `<div class="match-label">Match ${rot.nums[mi]}</div><div class="duo">${tags}</div>`;
+      // Only show heart once per duo
+      const pref = hasPref(duo[0], duo[1]);
+      const duoHtml = pref
+        ? `<div class="duo">${duo.map(p=>{const isSub=!lineup.baseIds.has(p.id);const cls=isSub?`tag tag-sub-${p.level.toLowerCase()}`:`tag tag-${p.level.toLowerCase()}`;return `<span class="${cls}">${p.name}${isSub?'<span class="sub-arrow"> ↩</span>':''}</span>`;}).join("")}<span style="font-size:13px;margin-left:2px">💚</span></div>`
+        : `<div class="duo">${duo.map(p=>{const isSub=!lineup.baseIds.has(p.id);const cls=isSub?`tag tag-sub-${p.level.toLowerCase()}`:`tag tag-${p.level.toLowerCase()}`;return `<span class="${cls}">${p.name}${isSub?'<span class="sub-arrow"> ↩</span>':''}</span>`;}).join("")}</div>`;
+      return `<div class="match-label">Match ${rot.nums[mi]}</div>${duoHtml}`;
     }).join("");
+
     card.innerHTML = `
       <div class="rot-head">
         <span class="rot-head-label">Rotatie ${r+1} · ${rot.nums[0]} & ${rot.nums[1]}</span>
@@ -371,25 +430,26 @@ function generate() {
     rotGrid.appendChild(card);
   });
 
-  // Render counts
+  // Render play counts
   const countGrid = document.getElementById("count-grid");
   countGrid.innerHTML = "";
   sel.forEach(p => {
-    const n = result.counts[p.id];
+    const n = lineup.counts[p.id];
     const card = document.createElement("div");
     card.className = "count-card";
-    card.innerHTML = `<div class="count-name">${p.name}</div><div class="count-num count-num-${n}">${n}</div><div class="count-level">${p.level}</div>`;
+    card.innerHTML = `<div class="count-name">${p.name}</div><div class="count-num c${n}">${n}</div><div class="count-level">${p.level}</div>`;
     countGrid.appendChild(card);
   });
 
   document.getElementById("result").style.display = "block";
   document.getElementById("btn-regen").style.display = "inline-flex";
   document.getElementById("btn-share").style.display = "inline-flex";
-  if(navigator.share) document.getElementById("btn-native").style.display = "inline-flex";
+  if (navigator.share) document.getElementById("btn-native").style.display = "inline-flex";
 }
 
+// ── Share ─────────────────────────────────────────────────────────────────────
 function buildShareText() {
-  if(!currentLineup || currentLineup.error) return "";
+  if (!currentLineup || currentLineup.error) return "";
   const sel = PLAYERS.filter(p=>selected.has(p.id));
   let txt = `🎾 Padel opstelling — ${sel.length} spelers\n\n`;
   currentLineup.rotations.forEach((rot,r) => {
@@ -403,34 +463,23 @@ function buildShareText() {
 }
 
 function toggleShare() {
-  const panel = document.getElementById("share-panel");
-  panel.classList.toggle("open");
+  document.getElementById("share-panel").classList.toggle("open");
 }
-
 function shareWhatsApp() {
-  const text = buildShareText();
-  window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+  window.open("https://wa.me/?text=" + encodeURIComponent(buildShareText()), "_blank");
 }
-
 function copyText() {
   const text = buildShareText();
-  navigator.clipboard.writeText(text).then(() => showToast("✓ Gekopieerd!")).catch(() => {
-    const ta = document.createElement("textarea");
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); document.body.removeChild(ta);
-    showToast("✓ Gekopieerd!");
+  navigator.clipboard.writeText(text).then(()=>showToast("✓ Gekopieerd!")).catch(()=>{
+    const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);showToast("✓ Gekopieerd!");
   });
 }
-
 function shareNative() {
-  const text = buildShareText();
-  navigator.share({title:"Padel opstelling", text}).catch(()=>{});
+  navigator.share({title:"Padel opstelling",text:buildShareText()}).catch(()=>{});
 }
-
 function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"), 2200);
+  const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2200);
 }
 </script>
 </body>
